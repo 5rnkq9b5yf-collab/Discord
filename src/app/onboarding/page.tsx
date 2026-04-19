@@ -570,7 +570,7 @@ export default function OnboardingPage() {
     />,
     <StepBio key="bio" bio={bio} onBio={setBio} onNext={next} onBack={back} />,
     <StepSpotify key="spotify" onNext={next} onBack={back} />,
-    <StepDone key="done" displayName={displayName} onEnter={() => router.push("/app")} />,
+    <StepDone key="done" displayName={displayName} onEnter={() => router.push("/chat")} />,
   ];
 
   return (

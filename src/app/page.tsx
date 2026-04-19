@@ -80,7 +80,7 @@ export default function LandingPage() {
         <div className="flex items-center gap-2">
           <span className="text-2xl font-bold lyra-gradient-text">♪ Lyra</span>
         </div>
-        <Button variant="ghost" size="sm" onClick={() => router.push("/app")}>
+        <Button variant="ghost" size="sm" onClick={() => router.push("/chat")}>
           Sign In
         </Button>
       </nav>
@@ -133,7 +133,7 @@ export default function LandingPage() {
           </p>
         </form>
 
-        <Button variant="ghost" size="md" onClick={() => router.push("/app")} className="text-[var(--lyra-text-muted)]">
+        <Button variant="ghost" size="md" onClick={() => router.push("/chat")} className="text-[var(--lyra-text-muted)]">
           Already have an account? Sign in →
         </Button>
       </section>
