@@ -1,0 +1,167 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss";
+
+:root {
+  /* Lyra theme tokens — defaults to Lyra Default (deep purple) */
+  --lyra-primary-bg: #1a1230;
+  --lyra-secondary-bg: #231840;
+  --lyra-tertiary-bg: #2d2050;
+  --lyra-sidebar-bg: #130d25;
+  --lyra-channel-sidebar-bg: #1a1230;
+  --lyra-chat-bg: #1a1230;
+  --lyra-message-bg: #231840;
+  --lyra-accent: #c084fc;
+  --lyra-accent-hover: #d8b4fe;
+  --lyra-text-primary: #f3e8ff;
+  --lyra-text-secondary: #d8b4fe;
+  --lyra-text-muted: #a855f7;
+  --lyra-border: #3b2a6e;
+  --lyra-button-primary: #7c3aed;
+  --lyra-button-primary-text: #ffffff;
+  --lyra-input-bg: #231840;
+  --lyra-input-border: #3b2a6e;
+  --lyra-status-online: #34d399;
+  --lyra-status-idle: #fbbf24;
+  --lyra-status-dnd: #f87171;
+  --lyra-status-offline: #6b7280;
+  --lyra-scrollbar: #3b2a6e;
+  --lyra-scrollbar-hover: #c084fc;
+}
+
+@theme inline {
+  --color-background: var(--lyra-primary-bg);
+  --color-foreground: var(--lyra-text-primary);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--lyra-primary-bg);
+  color: var(--lyra-text-primary);
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--lyra-scrollbar);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--lyra-scrollbar-hover);
+}
+
+/* Selection color */
+::selection {
+  background: var(--lyra-accent);
+  color: var(--lyra-button-primary-text);
+  opacity: 0.3;
+}
+
+/* Animations */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px 2px var(--lyra-accent); }
+  50% { box-shadow: 0 0 20px 6px var(--lyra-accent); }
+}
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes rainbow-border {
+  0% { border-color: #ff0000; }
+  16% { border-color: #ff7700; }
+  32% { border-color: #ffff00; }
+  48% { border-color: #00ff00; }
+  64% { border-color: #0000ff; }
+  80% { border-color: #8b00ff; }
+  100% { border-color: #ff0000; }
+}
+@keyframes neon-pulse {
+  0%, 100% { box-shadow: 0 0 5px var(--lyra-accent), 0 0 10px var(--lyra-accent); }
+  50% { box-shadow: 0 0 20px var(--lyra-accent), 0 0 40px var(--lyra-accent); }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-in-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+@keyframes typing-dot {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-rainbow-border { animation: rainbow-border 3s linear infinite; }
+.animate-neon-pulse { animation: neon-pulse 2s ease-in-out infinite; }
+.animate-fade-in { animation: fade-in 0.3s ease-out; }
+.animate-slide-in-up { animation: slide-in-up 0.3s ease-out; }
+
+/* Squircle avatar shape */
+.avatar-squircle {
+  clip-path: path("M 0,50 C 0,15 15,0 50,0 C 85,0 100,15 100,50 C 100,85 85,100 50,100 C 15,100 0,85 0,50 Z");
+}
+
+/* Custom CSS injection area */
+.user-custom-css {
+  /* User custom CSS goes here via style tag injection */
+}
+
+/* Lyra branding gradient */
+.lyra-gradient {
+  background: linear-gradient(135deg, #7c3aed 0%, #c084fc 50%, #f472b6 100%);
+}
+.lyra-gradient-text {
+  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
