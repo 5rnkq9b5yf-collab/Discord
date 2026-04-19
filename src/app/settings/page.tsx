@@ -426,7 +426,7 @@ export default function SettingsPage() {
       >
         <div className="flex items-center gap-2 mb-4 px-2">
           <button
-            onClick={() => router.push("/app")}
+            onClick={() => router.push("/chat")}
             className="text-[var(--lyra-text-muted)] hover:text-[var(--lyra-text-primary)] transition-colors"
             title="Back to app"
           >
