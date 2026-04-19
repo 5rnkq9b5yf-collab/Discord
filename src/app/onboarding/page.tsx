@@ -12,7 +12,7 @@ import { AVATAR_EFFECTS } from "@/components/ui/Avatar";
 import { generateId } from "@/lib/utils";
 import type { AvatarShape, IdentityTag as IdentityTagType } from "@/lib/types";
 import { ArrowRight, ArrowLeft, Check, Music, User, Smile, Palette, Tag, FileText } from "lucide-react";
-import canvasConfetti from "canvas-confetti";
+// canvas-confetti loaded dynamically inside useEffect to avoid SSR issues
 
 const AVATAR_SHAPES: { id: AvatarShape; label: string }[] = [
   { id: "circle", label: "Circle" },
@@ -488,17 +488,21 @@ function StepSpotify({ onNext, onBack }: { onNext: () => void; onBack: () => voi
 
 function StepDone({ displayName, onEnter }: { displayName: string; onEnter: () => void }) {
   useEffect(() => {
-    const fire = () => {
-      canvasConfetti({
-        particleCount: 120,
-        spread: 90,
-        origin: { y: 0.6 },
-        colors: ["#c084fc", "#f472b6", "#38bdf8", "#4ade80", "#fbbf24"],
-      });
-    };
-    fire();
-    const t = setTimeout(fire, 600);
-    return () => clearTimeout(t);
+    let cleanup = () => {};
+    import("canvas-confetti").then(({ default: confetti }) => {
+      const fire = () => {
+        confetti({
+          particleCount: 120,
+          spread: 90,
+          origin: { y: 0.6 },
+          colors: ["#c084fc", "#f472b6", "#38bdf8", "#4ade80", "#fbbf24"],
+        });
+      };
+      fire();
+      const t = setTimeout(fire, 600);
+      cleanup = () => clearTimeout(t);
+    });
+    return () => cleanup();
   }, []);
 
   return (
