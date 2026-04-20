@@ -37,7 +37,7 @@ function ParticipantTile({ participant }: { participant: VoiceParticipant }) {
         "flex flex-col items-center gap-2 p-3 rounded-2xl transition-all duration-200",
         participant.speaking
           ? "ring-2 ring-[var(--lyra-status-online)] bg-[var(--lyra-status-online)]/10"
-          : "bg-[var(--lyra-secondary-bg)]"
+          : "glass-surface"
       )}
     >
       <div className="relative">
@@ -114,7 +114,7 @@ export function VoiceChannel({
               "flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-colors",
               showListeningParty
                 ? "bg-green-500 text-black font-semibold"
-                : "bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-secondary)] hover:text-[var(--lyra-text-primary)]"
+                : "glass text-[var(--lyra-text-secondary)] hover:text-[var(--lyra-text-primary)]"
             )}
           >
             <Music size={14} />
@@ -142,8 +142,7 @@ export function VoiceChannel({
 
       {/* Voice controls bar */}
       <div
-        className="flex items-center justify-center gap-4 px-6 py-4 border-t border-[var(--lyra-border)]"
-        style={{ background: "var(--lyra-secondary-bg)" }}
+        className="flex items-center justify-center gap-4 px-6 py-4 glass-header"
       >
         <button
           onClick={() => setMuted(!muted)}
@@ -151,7 +150,7 @@ export function VoiceChannel({
             "w-12 h-12 rounded-full flex items-center justify-center transition-all",
             muted
               ? "bg-[var(--lyra-status-dnd)] text-white"
-              : "bg-[var(--lyra-tertiary-bg)] text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-accent)] hover:text-white"
+              : "glass text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-glass-hover)] hover:text-[var(--lyra-accent)]"
           )}
           title={muted ? "Unmute" : "Mute"}
         >
@@ -164,7 +163,7 @@ export function VoiceChannel({
             "w-12 h-12 rounded-full flex items-center justify-center transition-all",
             deafened
               ? "bg-[var(--lyra-status-dnd)] text-white"
-              : "bg-[var(--lyra-tertiary-bg)] text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-accent)] hover:text-white"
+              : "glass text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-glass-hover)] hover:text-[var(--lyra-accent)]"
           )}
           title={deafened ? "Undeafen" : "Deafen"}
         >

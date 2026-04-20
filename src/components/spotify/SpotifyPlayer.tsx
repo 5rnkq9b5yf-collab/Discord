@@ -84,10 +84,9 @@ export function SpotifyPlayer({ onClose, className }: SpotifyPlayerProps) {
   return (
     <div
       className={cn(
-        "border-t border-[var(--lyra-border)] transition-all duration-300",
+        "glass-sidebar transition-all duration-300 border-t-0",
         className
       )}
-      style={{ background: "var(--lyra-sidebar-bg)" }}
     >
       {/* Mini player (always visible) */}
       <div className="flex items-center gap-3 px-4 py-2">
@@ -164,8 +163,7 @@ export function SpotifyPlayer({ onClose, className }: SpotifyPlayerProps) {
       {/* Queue panel */}
       {showQueue && (
         <div
-          className="border-t border-[var(--lyra-border)] p-3 space-y-1 max-h-48 overflow-y-auto animate-slide-in-up"
-          style={{ background: "var(--lyra-primary-bg)" }}
+          className="border-t border-[var(--lyra-border-glass)] p-3 space-y-1 max-h-48 overflow-y-auto animate-slide-in-up glass"
         >
           <p className="text-xs font-semibold uppercase tracking-wider text-[var(--lyra-text-muted)] mb-2">
             Queue
@@ -176,8 +174,8 @@ export function SpotifyPlayer({ onClose, className }: SpotifyPlayerProps) {
               className={cn(
                 "flex items-center gap-2 p-1.5 rounded-lg cursor-pointer transition-colors",
                 i === 0
-                  ? "bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-primary)]"
-                  : "hover:bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-secondary)]"
+                  ? "bg-[var(--lyra-glass-card)] text-[var(--lyra-text-primary)]"
+                  : "hover:bg-[var(--lyra-glass-hover)] text-[var(--lyra-text-secondary)]"
               )}
             >
               <div className="w-7 h-7 rounded flex items-center justify-center text-xs bg-[var(--lyra-tertiary-bg)]">
@@ -196,8 +194,7 @@ export function SpotifyPlayer({ onClose, className }: SpotifyPlayerProps) {
       {/* Expanded full player */}
       {expanded && (
         <div
-          className="border-t border-[var(--lyra-border)] p-4 animate-slide-in-up"
-          style={{ background: "var(--lyra-primary-bg)" }}
+          className="border-t border-[var(--lyra-border-glass)] p-4 animate-slide-in-up glass"
         >
           {/* Large album art */}
           <div

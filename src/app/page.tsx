@@ -114,11 +114,9 @@ export default function LandingPage() {
               value={inviteCode}
               onChange={(e) => { setInviteCode(e.target.value); setInviteError(""); }}
               placeholder="Enter your invite code"
-              className="flex-1 px-4 py-3 rounded-xl text-sm border outline-none transition-all"
+              className="lyra-input flex-1 px-4 py-3 text-sm"
               style={{
-                background: "var(--lyra-input-bg)",
-                borderColor: inviteError ? "var(--lyra-status-dnd)" : inputBorder,
-                color: "var(--lyra-text-primary)",
+                borderColor: inviteError ? "var(--lyra-status-dnd)" : inputBorder === "var(--lyra-input-border)" ? undefined : inputBorder,
               }}
               onFocus={() => setInputBorder("var(--lyra-accent)")}
               onBlur={() => setInputBorder(inviteError ? "var(--lyra-status-dnd)" : "var(--lyra-input-border)")}

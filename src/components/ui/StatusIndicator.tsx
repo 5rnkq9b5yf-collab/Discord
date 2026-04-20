@@ -27,7 +27,7 @@ export function StatusIndicator({ status, size = "md", className }: StatusIndica
   return (
     <span
       className={cn(
-        "rounded-full border-[var(--lyra-sidebar-bg)] flex-shrink-0",
+        "rounded-full border-transparent flex-shrink-0",
         STATUS_STYLES[status],
         SIZE_STYLES[size],
         status === "dnd" && "after:content-[''] after:block after:w-1/2 after:h-[2px] after:bg-[var(--lyra-sidebar-bg)] after:rounded after:mx-auto after:my-auto after:mt-[3px]",
