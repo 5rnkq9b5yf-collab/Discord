@@ -21,7 +21,7 @@ export function MemberPanel({ members, onClickUser, className }: MemberPanelProp
   const { online, offline } = groupMembers(members);
 
   return (
-    <aside className={cn("glass-sidebar-right flex flex-col w-60 flex-shrink-0 py-4 overflow-y-auto", className)}>
+    <aside className={cn("glass-sidebar-right flex flex-col w-[224px] flex-shrink-0 py-4 overflow-y-auto", className)}>
       <div className="px-3 mb-2">
         <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: "var(--lyra-text-muted)" }}>
           Online — {online.length}

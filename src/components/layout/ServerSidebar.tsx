@@ -22,7 +22,7 @@ function ServerIcon({ server, active, onClick }: { server: Server; active: boole
       <button
         onClick={onClick}
         className={cn(
-          "relative group flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-200 select-none hover-lift",
+          "relative group flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-200 select-none hover-lift",
           active
             ? "rounded-xl border border-[var(--lyra-border-glow)] shadow-[0_0_16px_var(--lyra-accent-glow)]"
             : "hover:rounded-xl"
@@ -48,7 +48,7 @@ function ServerIcon({ server, active, onClick }: { server: Server; active: boole
           className={cn(
             "absolute -left-3 w-1 rounded-r-full transition-all duration-200",
             "bg-[var(--lyra-accent)]",
-            active ? "h-9" : "h-0 group-hover:h-4"
+            active ? "h-8" : "h-0 group-hover:h-4"
           )}
         />
       </button>
@@ -61,7 +61,7 @@ function IconButton({ label, onClick, children, active }: { label: string; onCli
     <Tooltip content={label} side="right">
       <button
         onClick={onClick}
-        className="group flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-200 hover:rounded-xl hover-lift"
+        className="group flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-200 hover:rounded-xl hover-lift"
         style={{
           background: active ? "var(--lyra-glass-active)" : "var(--lyra-glass-card)",
           backdropFilter: "var(--lyra-blur-sm)",
@@ -87,14 +87,14 @@ function IconButton({ label, onClick, children, active }: { label: string; onCli
 export function ServerSidebar({ servers, currentServerId, currentUser, onSelectServer, onOpenSettings }: ServerSidebarProps) {
   return (
     <aside
-      className="glass-sidebar flex flex-col items-center py-3 gap-2 w-[72px] flex-shrink-0 overflow-y-auto"
+      className="glass-sidebar flex flex-col items-center py-3 gap-2 w-[68px] flex-shrink-0 overflow-y-auto"
     >
       {/* Logo */}
       <Tooltip content="Home" side="right">
         <button
           onClick={() => onSelectServer("dm")}
           className={cn(
-            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200 font-bold text-xl hover:rounded-xl hover-lift",
+            "w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-200 font-bold text-xl hover:rounded-xl hover-lift",
           )}
           style={{
             background: currentServerId === "dm" ? "var(--lyra-glass-active)" : "var(--lyra-glass-card)",

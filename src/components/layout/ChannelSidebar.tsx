@@ -88,7 +88,7 @@ export function ChannelSidebar({
   const toggle = (id: string) => setCollapsed((p) => ({ ...p, [id]: !p[id] }));
 
   return (
-    <aside className="glass-sidebar flex flex-col w-60 flex-shrink-0">
+    <aside className="glass-sidebar flex flex-col w-[232px] flex-shrink-0">
       {/* Server header */}
       <button
         className="flex items-center justify-between px-4 h-12 font-semibold transition-colors"

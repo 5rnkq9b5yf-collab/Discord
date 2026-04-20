@@ -9,12 +9,7 @@ import {
   Smile,
   Reply,
   MoreHorizontal,
-  Edit2,
   Trash2,
-  Pin,
-  Bookmark,
-  Share2,
-  Copy,
 } from "lucide-react";
 
 interface MessageProps {
@@ -40,29 +35,19 @@ function ReactionBubble({
   return (
     <button
       onClick={onClick}
-      className={cn(
-        "inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-sm border transition-all",
-        reacted
-          ? "bg-[var(--lyra-accent)]/20 border-[var(--lyra-accent)]/50 text-[var(--lyra-accent)]"
-          : "bg-[var(--lyra-tertiary-bg)] border-[var(--lyra-border)] text-[var(--lyra-text-secondary)] hover:bg-[var(--lyra-accent)]/10 hover:border-[var(--lyra-accent)]/30"
-      )}
+      className={cn("inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium border transition-all duration-100")}
+      style={{
+        background: reacted ? "var(--lyra-glass-active)" : "var(--lyra-glass-card)",
+        borderColor: reacted ? "var(--lyra-border-glow)" : "var(--lyra-border-glass)",
+        color: reacted ? "var(--lyra-accent)" : "var(--lyra-text-secondary)",
+      }}
     >
       <span>{emoji}</span>
-      <span className="text-xs font-medium">{count}</span>
+      <span>{count}</span>
     </button>
   );
 }
 
-const ACTION_BUTTONS = [
-  { icon: <Smile size={16} />, label: "React", action: "react" },
-  { icon: <Reply size={16} />, label: "Reply", action: "reply" },
-  { icon: <Edit2 size={16} />, label: "Edit", action: "edit" },
-  { icon: <Pin size={16} />, label: "Pin", action: "pin" },
-  { icon: <Bookmark size={16} />, label: "Bookmark", action: "bookmark" },
-  { icon: <Copy size={16} />, label: "Copy", action: "copy" },
-  { icon: <Trash2 size={16} />, label: "Delete", action: "delete", danger: true },
-  { icon: <MoreHorizontal size={16} />, label: "More", action: "more" },
-];
 
 export function Message({
   message,
@@ -94,7 +79,7 @@ export function Message({
             src={message.author.avatar}
             shape={message.author.avatarShape}
             effect={message.author.avatarEffect}
-            size={40}
+            size={36}
             onClick={() => onClickUser?.(message.author)}
             className="cursor-pointer"
           />
