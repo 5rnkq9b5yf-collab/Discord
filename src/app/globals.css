@@ -1,105 +1,114 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
+/* ============================================================
+   LYRA DESIGN TOKENS — Astral Instrument
+   ============================================================ */
 :root {
-  /* === Pastel Blue Glass — default === */
-
-  /* Base */
-  --lyra-primary-bg: #0a0f1e;
-  --lyra-secondary-bg: rgba(120, 160, 255, 0.08);
-  --lyra-tertiary-bg: rgba(150, 190, 255, 0.15);
-  --lyra-sidebar-bg: rgba(100, 140, 255, 0.10);
-  --lyra-channel-sidebar-bg: rgba(100, 140, 255, 0.10);
+  /* Base backgrounds */
+  --lyra-primary-bg: #07091a;
+  --lyra-secondary-bg: rgba(130, 165, 255, 0.10);
+  --lyra-tertiary-bg: rgba(150, 185, 255, 0.16);
+  --lyra-sidebar-bg: rgba(110, 145, 255, 0.10);
+  --lyra-channel-sidebar-bg: rgba(110, 145, 255, 0.10);
   --lyra-chat-bg: transparent;
-  --lyra-message-bg: rgba(120, 160, 255, 0.06);
+  --lyra-message-bg: rgba(130, 165, 255, 0.06);
 
   /* Glass surfaces */
-  --lyra-glass-sidebar: rgba(100, 140, 255, 0.10);
-  --lyra-glass-card: rgba(160, 200, 255, 0.12);
-  --lyra-glass-modal: rgba(180, 210, 255, 0.15);
-  --lyra-glass-input: rgba(120, 160, 255, 0.08);
-  --lyra-glass-hover: rgba(150, 190, 255, 0.18);
-  --lyra-glass-active: rgba(150, 190, 255, 0.25);
+  --lyra-glass-sidebar: rgba(110, 145, 255, 0.10);
+  --lyra-glass-card: rgba(140, 180, 255, 0.13);
+  --lyra-glass-modal: rgba(160, 200, 255, 0.16);
+  --lyra-glass-input: rgba(140, 175, 255, 0.10);
+  --lyra-glass-hover: rgba(155, 190, 255, 0.20);
+  --lyra-glass-active: rgba(155, 190, 255, 0.26);
 
-  /* Borders */
-  --lyra-border: rgba(160, 200, 255, 0.20);
-  --lyra-border-glass: rgba(160, 200, 255, 0.20);
-  --lyra-border-glow: rgba(160, 200, 255, 0.40);
+  /* Glass borders */
+  --lyra-border: rgba(160, 200, 255, 0.22);
+  --lyra-border-glass: rgba(160, 200, 255, 0.22);
+  --lyra-border-glow: rgba(160, 200, 255, 0.45);
+  --lyra-border-subtle: rgba(160, 200, 255, 0.10);
 
   /* Accent */
-  --lyra-accent: #7eb8ff;
-  --lyra-accent-hover: #9ccaff;
-  --lyra-accent-glow: rgba(126, 184, 255, 0.35);
+  --lyra-accent: #89c4ff;
+  --lyra-accent-hover: #aad5ff;
+  --lyra-accent-glow: rgba(137, 196, 255, 0.38);
+  --lyra-accent-dim: rgba(137, 196, 255, 0.18);
 
   /* Text */
-  --lyra-text-primary: rgba(220, 235, 255, 0.95);
-  --lyra-text-secondary: rgba(180, 205, 255, 0.65);
-  --lyra-text-muted: rgba(140, 170, 255, 0.45);
+  --lyra-text-primary: rgba(225, 238, 255, 0.96);
+  --lyra-text-secondary: rgba(185, 210, 255, 0.68);
+  --lyra-text-muted: rgba(145, 175, 255, 0.44);
+  --lyra-text-placeholder: rgba(145, 175, 255, 0.32);
 
   /* Buttons */
-  --lyra-button-primary: rgba(126, 184, 255, 0.25);
-  --lyra-button-primary-text: rgba(220, 235, 255, 0.95);
+  --lyra-button-primary: rgba(137, 196, 255, 0.18);
+  --lyra-button-primary-text: rgba(225, 238, 255, 0.96);
 
   /* Inputs */
-  --lyra-input-bg: rgba(120, 160, 255, 0.08);
-  --lyra-input-border: rgba(160, 200, 255, 0.20);
+  --lyra-input-bg: rgba(140, 175, 255, 0.10);
+  --lyra-input-border: rgba(160, 200, 255, 0.22);
 
   /* Status */
-  --lyra-status-online: #7defa1;
-  --lyra-status-idle: #f5d97a;
+  --lyra-status-online: #6ee9a0;
+  --lyra-status-idle: #fad46a;
   --lyra-status-dnd: #f87171;
-  --lyra-status-offline: rgba(140, 170, 255, 0.30);
+  --lyra-status-offline: rgba(145, 175, 255, 0.28);
 
-  /* Blur levels */
+  /* Blur */
   --lyra-blur-sm: blur(8px);
   --lyra-blur-md: blur(16px);
   --lyra-blur-lg: blur(24px);
-  --lyra-blur-xl: blur(40px);
+  --lyra-blur-xl: blur(48px);
 
   /* Scrollbar */
-  --lyra-scrollbar: rgba(160, 200, 255, 0.15);
-  --lyra-scrollbar-hover: rgba(160, 200, 255, 0.40);
+  --lyra-scrollbar: rgba(160, 200, 255, 0.14);
+  --lyra-scrollbar-hover: rgba(160, 200, 255, 0.38);
+
+  /* Radius scale */
+  --r-xs: 6px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --r-full: 9999px;
 }
 
 @theme inline {
   --color-background: var(--lyra-primary-bg);
   --color-foreground: var(--lyra-text-primary);
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Sora", system-ui, -apple-system, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html,
-body {
-  height: 100%;
-  overflow: hidden;
-}
+html, body { height: 100%; overflow: hidden; }
 
 body {
   background-color: var(--lyra-primary-bg);
   background-image:
-    radial-gradient(ellipse at 20% 50%, rgba(100, 140, 255, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(140, 180, 255, 0.08) 0%, transparent 40%),
-    radial-gradient(ellipse at 60% 80%, rgba(80, 120, 255, 0.06) 0%, transparent 40%);
+    radial-gradient(ellipse 80% 60% at 15% 40%, rgba(88, 130, 255, 0.14) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 85% 15%, rgba(130, 100, 255, 0.10) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 70% at 70% 85%, rgba(60, 110, 255, 0.08) 0%, transparent 50%);
   color: var(--lyra-text-primary);
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  font-family: "Sora", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
 }
 
-/* === Glass utility classes === */
+/* ============================================================
+   GLASS UTILITY CLASSES
+   ============================================================ */
 
+/* Light-edge highlight mixin — every glass panel catches the "light" from above */
 .glass-surface {
   background: var(--lyra-glass-card);
   backdrop-filter: var(--lyra-blur-md);
   -webkit-backdrop-filter: var(--lyra-blur-md);
   border: 0.5px solid var(--lyra-border-glass);
-  border-radius: 16px;
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 4px 24px rgba(0, 0, 10, 0.3);
   will-change: transform;
 }
 
@@ -108,6 +117,7 @@ body {
   backdrop-filter: var(--lyra-blur-lg);
   -webkit-backdrop-filter: var(--lyra-blur-lg);
   border-right: 0.5px solid var(--lyra-border-glass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 1px 0 0 rgba(160, 200, 255, 0.06);
   will-change: transform;
 }
 
@@ -116,6 +126,7 @@ body {
   backdrop-filter: var(--lyra-blur-lg);
   -webkit-backdrop-filter: var(--lyra-blur-lg);
   border-left: 0.5px solid var(--lyra-border-glass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   will-change: transform;
 }
 
@@ -124,47 +135,81 @@ body {
   backdrop-filter: var(--lyra-blur-xl);
   -webkit-backdrop-filter: var(--lyra-blur-xl);
   border: 0.5px solid var(--lyra-border-glow);
-  box-shadow: 0 0 40px rgba(126, 184, 255, 0.08), inset 0 0 20px rgba(160, 200, 255, 0.04);
+  border-radius: var(--r-xl);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 60px rgba(100, 160, 255, 0.10),
+    0 24px 64px rgba(0, 0, 20, 0.50);
   will-change: transform;
 }
 
 .glass-header {
-  background: rgba(100, 140, 255, 0.06);
+  background: rgba(90, 125, 255, 0.06);
   backdrop-filter: var(--lyra-blur-sm);
   -webkit-backdrop-filter: var(--lyra-blur-sm);
   border-bottom: 0.5px solid var(--lyra-border-glass);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .glass-tooltip {
-  background: rgba(20, 30, 70, 0.85);
+  background: rgba(10, 15, 40, 0.90);
   backdrop-filter: var(--lyra-blur-sm);
   -webkit-backdrop-filter: var(--lyra-blur-sm);
   border: 0.5px solid var(--lyra-border-glass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 8px 24px rgba(0,0,20,0.5);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 4px; height: 4px; }
+.glass-pill {
+  background: var(--lyra-glass-card);
+  backdrop-filter: var(--lyra-blur-sm);
+  -webkit-backdrop-filter: var(--lyra-blur-sm);
+  border: 0.5px solid var(--lyra-border-glass);
+  border-radius: var(--r-full);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+}
+
+/* Primary button — architectural glass with accent edge */
+.glass-btn-primary {
+  background: linear-gradient(160deg, rgba(137, 196, 255, 0.22) 0%, rgba(110, 160, 255, 0.14) 100%);
+  backdrop-filter: var(--lyra-blur-sm);
+  -webkit-backdrop-filter: var(--lyra-blur-sm);
+  border: 0.5px solid var(--lyra-border-glow);
+  color: var(--lyra-accent);
+  font-weight: 600;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 0 0 0 var(--lyra-accent-glow);
+  transition: all 0.18s ease;
+}
+.glass-btn-primary:hover:not(:disabled) {
+  background: linear-gradient(160deg, rgba(137, 196, 255, 0.32) 0%, rgba(110, 160, 255, 0.22) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 0 20px var(--lyra-accent-glow);
+  border-color: var(--lyra-accent);
+  color: var(--lyra-accent-hover);
+}
+.glass-btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar { width: 3px; height: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--lyra-scrollbar); border-radius: 2px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--lyra-scrollbar-hover); }
 
 /* Selection */
-::selection {
-  background: var(--lyra-accent-glow);
-  color: var(--lyra-text-primary);
-}
+::selection { background: rgba(137, 196, 255, 0.30); color: var(--lyra-text-primary); }
 
 /* Focus ring */
-*:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--lyra-accent-glow);
-}
+*:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--lyra-accent-glow); border-radius: var(--r-sm); }
 
-/* === Animations === */
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
 @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px 2px var(--lyra-accent-glow); }
-  50% { box-shadow: 0 0 20px 6px var(--lyra-accent-glow); }
+  0%, 100% { box-shadow: 0 0 0 0 var(--lyra-accent-glow); }
+  50% { box-shadow: 0 0 0 8px transparent; }
 }
 @keyframes sparkle {
   0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
@@ -175,58 +220,62 @@ body {
   50% { transform: translateY(-8px); }
 }
 @keyframes rainbow-border {
-  0% { border-color: #ff0000; } 16% { border-color: #ff7700; }
-  32% { border-color: #ffff00; } 48% { border-color: #00ff00; }
-  64% { border-color: #0000ff; } 80% { border-color: #8b00ff; }
-  100% { border-color: #ff0000; }
+  0% { border-color: #ff6b9d; } 25% { border-color: #89c4ff; }
+  50% { border-color: #6ee9a0; } 75% { border-color: #fad46a; }
+  100% { border-color: #ff6b9d; }
 }
 @keyframes neon-pulse {
   0%, 100% { box-shadow: 0 0 5px var(--lyra-accent), 0 0 10px var(--lyra-accent); }
   50% { box-shadow: 0 0 20px var(--lyra-accent), 0 0 40px var(--lyra-accent); }
 }
 @keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-@keyframes slide-in-up { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes slide-in-up { from { transform: translateY(14px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 @keyframes typing-dot {
   0%, 60%, 100% { transform: translateY(0); }
-  30% { transform: translateY(-6px); }
+  30% { transform: translateY(-5px); }
 }
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.94); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: scale(0.95) translateY(4px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 @keyframes status-pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.2); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--lyra-status-online); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 3px transparent; }
+}
+@keyframes glow-in {
+  from { opacity: 0; box-shadow: 0 0 0 0 var(--lyra-accent-glow); }
+  to { opacity: 1; box-shadow: 0 0 24px var(--lyra-accent-glow); }
 }
 
 .animate-spin-slow { animation: spin-slow 8s linear infinite; }
 .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
 .animate-float { animation: float 3s ease-in-out infinite; }
-.animate-rainbow-border { animation: rainbow-border 3s linear infinite; }
+.animate-rainbow-border { animation: rainbow-border 4s linear infinite; }
 .animate-neon-pulse { animation: neon-pulse 2s ease-in-out infinite; }
-.animate-fade-in { animation: fade-in 0.25s ease-out; }
-.animate-slide-in-up { animation: slide-in-up 0.25s ease-out; }
-.animate-scale-in { animation: scale-in 0.2s ease-out; }
+.animate-fade-in { animation: fade-in 0.2s ease-out; }
+.animate-slide-in-up { animation: slide-in-up 0.22s ease-out; }
+.animate-scale-in { animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1); }
 .animate-status-pulse { animation: status-pulse 2.5s ease-in-out infinite; }
 
 /* Hover lift */
-.hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
-.hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126, 184, 255, 0.10); }
+.hover-lift { transition: transform 0.18s ease, box-shadow 0.18s ease; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0, 10, 40, 0.35), 0 0 0 0.5px var(--lyra-border-glass); }
 
-/* Squircle avatar */
+/* ============================================================
+   SHAPES & EFFECTS
+   ============================================================ */
 .avatar-squircle {
   clip-path: path("M 0,50 C 0,15 15,0 50,0 C 85,0 100,15 100,50 C 100,85 85,100 50,100 C 15,100 0,85 0,50 Z");
 }
 
-/* Custom CSS injection */
 .user-custom-css {}
 
-/* Lyra gradient */
-.lyra-gradient { background: linear-gradient(135deg, #5b9aff 0%, #7eb8ff 50%, #a8d4ff 100%); }
+/* Gradients */
+.lyra-gradient { background: linear-gradient(135deg, #5b8eff 0%, #89c4ff 50%, #b8dcff 100%); }
 .lyra-gradient-text {
-  background: linear-gradient(135deg, #7eb8ff 0%, #b0d4ff 100%);
+  background: linear-gradient(135deg, #89c4ff 0%, #c4e4ff 60%, #dceeff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -238,9 +287,31 @@ body {
   backdrop-filter: var(--lyra-blur-md);
   -webkit-backdrop-filter: var(--lyra-blur-md);
   border: 0.5px solid var(--lyra-border-glass);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
 }
 
-/* Reduced motion */
+/* Input style */
+.lyra-input {
+  background: var(--lyra-glass-input);
+  backdrop-filter: var(--lyra-blur-sm);
+  -webkit-backdrop-filter: var(--lyra-blur-sm);
+  border: 0.5px solid var(--lyra-border-glass);
+  border-radius: var(--r-md);
+  color: var(--lyra-text-primary);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+.lyra-input::placeholder { color: var(--lyra-text-placeholder); }
+.lyra-input:focus {
+  border-color: var(--lyra-accent);
+  background: var(--lyra-glass-hover);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 0 0 3px var(--lyra-accent-dim);
+  outline: none;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   body { background-image: none; }

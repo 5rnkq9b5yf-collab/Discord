@@ -39,7 +39,7 @@ function StepIndicator({ current, total }: { current: number; total: number }) {
               ? "w-6 h-2 bg-[var(--lyra-accent)]"
               : i === current
               ? "w-4 h-2 bg-[var(--lyra-accent)] opacity-80"
-              : "w-2 h-2 bg-[var(--lyra-border)]"
+              : "w-2 h-2 bg-[var(--lyra-border-glass)]"
           )}
         />
       ))}
@@ -120,12 +120,7 @@ function StepNameUsername({
             onChange={(e) => onDisplayName(e.target.value)}
             placeholder="Lily ✨"
             maxLength={50}
-            className="w-full px-4 py-3 rounded-xl border outline-none text-sm transition-colors"
-            style={{
-              background: "var(--lyra-input-bg)",
-              borderColor: "var(--lyra-input-border)",
-              color: "var(--lyra-text-primary)",
-            }}
+            className="lyra-input w-full px-4 py-3 text-sm"
           />
           <p className="text-xs text-[var(--lyra-text-muted)] mt-1">This is shown to others. Can include any characters.</p>
         </div>
@@ -142,15 +137,13 @@ function StepNameUsername({
               onChange={(e) => handleUsername(e.target.value)}
               placeholder="starlily"
               maxLength={32}
-              className="w-full pl-8 pr-12 py-3 rounded-xl border outline-none text-sm transition-colors"
+              className="lyra-input w-full pl-8 pr-12 py-3 text-sm"
               style={{
-                background: "var(--lyra-input-bg)",
                 borderColor: usernameStatus === "taken"
                   ? "var(--lyra-status-dnd)"
                   : usernameStatus === "available"
                   ? "var(--lyra-status-online)"
-                  : "var(--lyra-input-border)",
-                color: "var(--lyra-text-primary)",
+                  : undefined,
               }}
             />
             {usernameStatus === "checking" && (
@@ -230,7 +223,7 @@ function StepAvatar({
                 "flex-1 py-2 rounded-xl border text-sm transition-all",
                 avatarShape === s.id
                   ? "border-[var(--lyra-accent)] bg-[var(--lyra-accent)]/10 text-[var(--lyra-accent)] font-medium"
-                  : "border-[var(--lyra-border)] text-[var(--lyra-text-muted)] hover:border-[var(--lyra-accent)]/50"
+                  : "border-[var(--lyra-border-glass)] text-[var(--lyra-text-muted)] hover:border-[var(--lyra-accent)]/50"
               )}
             >
               {s.label}
@@ -251,7 +244,7 @@ function StepAvatar({
                 "px-3 py-2 rounded-xl border text-xs transition-all",
                 avatarEffect === eff.id
                   ? "border-[var(--lyra-accent)] bg-[var(--lyra-accent)]/10 text-[var(--lyra-accent)] font-medium"
-                  : "border-[var(--lyra-border)] text-[var(--lyra-text-muted)] hover:border-[var(--lyra-accent)]/50"
+                  : "border-[var(--lyra-border-glass)] text-[var(--lyra-text-muted)] hover:border-[var(--lyra-accent)]/50"
               )}
             >
               {eff.label}
@@ -334,8 +327,7 @@ function StepIdentity({
           value={pronouns}
           onChange={(e) => onPronouns(e.target.value)}
           placeholder="she/her, they/them, he/him, etc."
-          className="w-full px-4 py-3 rounded-xl border outline-none text-sm transition-colors"
-          style={{ background: "var(--lyra-input-bg)", borderColor: "var(--lyra-input-border)", color: "var(--lyra-text-primary)" }}
+          className="lyra-input w-full px-4 py-3 text-sm"
         />
       </div>
 
@@ -351,8 +343,7 @@ function StepIdentity({
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addTag(); } }}
             placeholder="artist, gamer, she/her..."
             disabled={tags.length >= 5}
-            className="flex-1 px-4 py-2.5 rounded-xl border outline-none text-sm transition-colors"
-            style={{ background: "var(--lyra-input-bg)", borderColor: "var(--lyra-input-border)", color: "var(--lyra-text-primary)" }}
+            className="lyra-input flex-1 px-4 py-2.5 text-sm"
           />
           <Button variant="secondary" size="sm" onClick={addTag} disabled={!tagInput.trim() || tags.length >= 5}>
             Add
@@ -407,8 +398,7 @@ function StepBio({
           onChange={(e) => onBio(e.target.value.slice(0, 300))}
           placeholder="artist & dreamer. i make things pretty. ☁️"
           rows={5}
-          className="w-full px-4 py-3 rounded-xl border outline-none text-sm resize-none transition-colors"
-          style={{ background: "var(--lyra-input-bg)", borderColor: "var(--lyra-input-border)", color: "var(--lyra-text-primary)" }}
+          className="lyra-input w-full px-4 py-3 text-sm resize-none"
         />
         <p className="text-xs text-[var(--lyra-text-muted)] mt-1 text-right">{bio.length}/300</p>
       </div>
@@ -451,8 +441,7 @@ function StepSpotify({ onNext, onBack }: { onNext: () => void; onBack: () => voi
         </div>
       ) : (
         <div
-          className="p-6 rounded-2xl border text-center"
-          style={{ background: "var(--lyra-secondary-bg)", borderColor: "var(--lyra-border)" }}
+          className="glass-surface p-6 rounded-2xl text-center"
         >
           <p className="text-[var(--lyra-text-secondary)] text-sm mb-4">
             Connect your Spotify account to automatically show your now playing on your profile card and full profile.
@@ -579,8 +568,7 @@ export default function OnboardingPage() {
       style={{ background: "var(--lyra-primary-bg)" }}
     >
       <div
-        className="w-full max-w-md rounded-3xl border border-[var(--lyra-border)] p-8 shadow-2xl"
-        style={{ background: "var(--lyra-secondary-bg)" }}
+        className="w-full max-w-md glass-modal p-8"
       >
         <div className="flex items-center justify-between mb-6">
           <span className="text-lg font-bold lyra-gradient-text">♪ Lyra</span>

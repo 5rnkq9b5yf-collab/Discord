@@ -31,8 +31,7 @@ export function FullProfile({ user, onClose, onMessage, onAddFriend }: FullProfi
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
       <div
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl border border-[var(--lyra-border)] animate-slide-in-up"
-        style={{ background: "var(--lyra-primary-bg)" }}
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto glass-modal animate-scale-in"
       >
         {/* Close */}
         <button
@@ -132,7 +131,7 @@ export function FullProfile({ user, onClose, onMessage, onAddFriend }: FullProfi
                 </h4>
                 <div
                   className="text-sm text-[var(--lyra-text-secondary)] leading-relaxed whitespace-pre-wrap p-3 rounded-lg"
-                  style={{ background: "var(--lyra-secondary-bg)" }}
+                  style={{ background: "var(--lyra-glass-card)" }}
                 >
                   {user.bio}
                 </div>
