@@ -367,8 +367,7 @@ function ConnectionsTab() {
       ].map((account) => (
         <section
           key={account.name}
-          className="flex items-center justify-between p-4 rounded-2xl border border-[var(--lyra-border)]"
-          style={{ background: "var(--lyra-secondary-bg)" }}
+          className="flex items-center justify-between p-4 rounded-2xl glass-surface"
         >
           <div className="flex items-center gap-3">
             <div
@@ -394,8 +393,7 @@ function SimpleSection({ title, description, children }: { title: string; descri
         <p className="text-sm text-[var(--lyra-text-muted)]">{description}</p>
       </div>
       {children}
-      <div className="p-6 rounded-2xl border border-[var(--lyra-border)] flex flex-col items-center text-center gap-3"
-        style={{ background: "var(--lyra-secondary-bg)" }}>
+      <div className="p-6 rounded-2xl glass-surface flex flex-col items-center text-center gap-3">
         <span className="text-3xl">🚧</span>
         <p className="text-[var(--lyra-text-secondary)] text-sm">Full settings coming soon. The backend integration will unlock all options.</p>
       </div>
@@ -420,19 +418,19 @@ export default function SettingsPage() {
   return (
     <div className="flex h-full overflow-hidden" style={{ background: "var(--lyra-primary-bg)" }}>
       {/* Settings sidebar */}
-      <aside
-        className="w-64 flex-shrink-0 flex flex-col py-6 px-3"
-        style={{ background: "var(--lyra-channel-sidebar-bg)" }}
-      >
+      <aside className="glass-sidebar w-64 flex-shrink-0 flex flex-col py-6 px-3">
         <div className="flex items-center gap-2 mb-4 px-2">
           <button
             onClick={() => router.push("/chat")}
-            className="text-[var(--lyra-text-muted)] hover:text-[var(--lyra-text-primary)] transition-colors"
+            className="transition-colors"
+            style={{ color: "var(--lyra-text-muted)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = "var(--lyra-accent)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "var(--lyra-text-muted)"; }}
             title="Back to app"
           >
             <ArrowLeft size={18} />
           </button>
-          <h1 className="font-bold text-[var(--lyra-text-primary)]">Settings</h1>
+          <h1 className="font-bold" style={{ color: "var(--lyra-text-primary)" }}>Settings</h1>
         </div>
 
         <nav className="flex flex-col gap-0.5">
@@ -440,36 +438,34 @@ export default function SettingsPage() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm transition-colors text-left",
-                activeTab === tab.id
-                  ? "bg-[var(--lyra-tertiary-bg)] text-[var(--lyra-text-primary)] font-medium"
-                  : "text-[var(--lyra-text-muted)] hover:bg-[var(--lyra-tertiary-bg)]/60 hover:text-[var(--lyra-text-secondary)]"
-              )}
+              className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-sm transition-all duration-150 text-left"
+              style={{
+                background: activeTab === tab.id ? "var(--lyra-glass-active)" : undefined,
+                color: activeTab === tab.id ? "var(--lyra-text-primary)" : "var(--lyra-text-muted)",
+                borderLeft: activeTab === tab.id ? "2px solid var(--lyra-accent)" : "2px solid transparent",
+              }}
+              onMouseEnter={(e) => { if (activeTab !== tab.id) { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-secondary)"; } }}
+              onMouseLeave={(e) => { if (activeTab !== tab.id) { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; } }}
             >
-              <span className={activeTab === tab.id ? "text-[var(--lyra-accent)]" : ""}>{tab.icon}</span>
+              <span style={{ color: activeTab === tab.id ? "var(--lyra-accent)" : "inherit" }}>{tab.icon}</span>
               {tab.label}
             </button>
           ))}
         </nav>
 
-        <div className="mt-auto pt-4 border-t border-[var(--lyra-border)]">
+        <div className="mt-auto pt-4" style={{ borderTop: "0.5px solid var(--lyra-border-glass)" }}>
           <div className="flex items-center gap-2 px-2">
-            <Avatar
-              displayName={CURRENT_USER.displayName}
-              shape={CURRENT_USER.avatarShape}
-              size={32}
-            />
+            <Avatar displayName={CURRENT_USER.displayName} shape={CURRENT_USER.avatarShape} size={32} />
             <div className="min-w-0">
-              <p className="text-xs font-medium text-[var(--lyra-text-primary)] truncate">{CURRENT_USER.displayName}</p>
-              <p className="text-xs text-[var(--lyra-text-muted)]">@{CURRENT_USER.username}</p>
+              <p className="text-xs font-medium truncate" style={{ color: "var(--lyra-text-primary)" }}>{CURRENT_USER.displayName}</p>
+              <p className="text-xs" style={{ color: "var(--lyra-text-muted)" }}>@{CURRENT_USER.username}</p>
             </div>
           </div>
         </div>
       </aside>
 
       {/* Settings content */}
-      <div className="flex-1 overflow-y-auto p-8" style={{ background: "var(--lyra-chat-bg)" }}>
+      <div className="flex-1 overflow-y-auto p-8">
         <div className="max-w-2xl mx-auto">
           {CONTENT[activeTab]}
         </div>

@@ -99,7 +99,7 @@ export default function AppPage() {
   }));
 
   return (
-    <div className="flex h-full overflow-hidden" style={{ background: "var(--lyra-primary-bg)" }}>
+    <div className="flex h-full overflow-hidden" style={{ background: "var(--lyra-primary-bg)", backgroundImage: "radial-gradient(ellipse at 20% 50%, rgba(var(--lyra-accent), 0.05) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(100,140,255,0.05) 0%, transparent 40%)" }}>
       {/* Server sidebar */}
       <ServerSidebar
         servers={MOCK_SERVERS}

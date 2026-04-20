@@ -20,34 +20,18 @@ interface ChatAreaProps {
 function TypingIndicator({ users }: { users: string[] }) {
   if (!users.length) return null;
   return (
-    <div className="flex items-center gap-2 px-4 py-1 text-xs text-[var(--lyra-text-muted)]">
+    <div className="flex items-center gap-2 px-4 py-1 text-xs" style={{ color: "var(--lyra-text-muted)" }}>
       <div className="flex gap-0.5 items-end h-3">
         {[0, 1, 2].map((i) => (
           <span
             key={i}
-            className="w-1 h-1 bg-[var(--lyra-text-muted)] rounded-full"
-            style={{ animation: `typing-dot 1.4s ease-in-out ${i * 0.2}s infinite` }}
+            className="w-1 h-1 rounded-full"
+            style={{ background: "var(--lyra-text-muted)", animation: `typing-dot 1.4s ease-in-out ${i * 0.2}s infinite` }}
           />
         ))}
       </div>
-      <span>
-        {users.join(", ")} {users.length === 1 ? "is" : "are"} typing...
-      </span>
+      <span>{users.join(", ")} {users.length === 1 ? "is" : "are"} typing...</span>
     </div>
-  );
-}
-
-function JumpToBottomButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="absolute bottom-24 right-8 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full
-        bg-[var(--lyra-accent)] text-white text-xs font-medium shadow-lg
-        hover:opacity-90 transition-all animate-slide-in-up"
-    >
-      <ChevronDown size={14} />
-      Jump to bottom
-    </button>
   );
 }
 
@@ -56,95 +40,61 @@ function shouldShowHeader(messages: MessageType[], index: number): boolean {
   const curr = messages[index];
   const prev = messages[index - 1];
   if (curr.authorId !== prev.authorId) return true;
-  const currTime = new Date(curr.createdAt).getTime();
-  const prevTime = new Date(prev.createdAt).getTime();
-  return currTime - prevTime > 5 * 60 * 1000; // 5 minutes
+  return new Date(curr.createdAt).getTime() - new Date(prev.createdAt).getTime() > 5 * 60 * 1000;
 }
 
-export function ChatArea({
-  channel,
-  messages,
-  currentUser,
-  onClickUser,
-  onSendMessage,
-  showMemberPanel,
-  onToggleMemberPanel,
-}: ChatAreaProps) {
+const CHANNEL_ICON: Record<string, React.ReactNode> = {
+  text: <Hash size={20} />, voice: <Volume2 size={20} />, announcements: <Bell size={20} />,
+  music: <span className="text-base">🎵</span>, polls: <span className="text-base">🗳️</span>,
+  events: <span className="text-base">📅</span>, stage: <span className="text-base">🎭</span>,
+  forum: <span className="text-base">📋</span>, video: <span className="text-base">📹</span>,
+};
+
+export function ChatArea({ channel, messages, currentUser, onClickUser, onSendMessage, showMemberPanel, onToggleMemberPanel }: ChatAreaProps) {
   const [replyTo, setReplyTo] = useState<MessageType | null>(null);
   const [showJumpToBottom, setShowJumpToBottom] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
 
   const handleScroll = () => {
     const el = scrollContainerRef.current;
     if (!el) return;
-    const nearBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
-    setShowJumpToBottom(!nearBottom);
-  };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  const CHANNEL_ICON: Record<string, React.ReactNode> = {
-    text: <Hash size={20} />,
-    voice: <Volume2 size={20} />,
-    announcements: <Bell size={20} />,
-    music: <span className="text-base">🎵</span>,
-    polls: <span className="text-base">🗳️</span>,
-    events: <span className="text-base">📅</span>,
-    stage: <span className="text-base">🎭</span>,
-    forum: <span className="text-base">📋</span>,
-    video: <span className="text-base">📹</span>,
+    setShowJumpToBottom(el.scrollHeight - el.scrollTop - el.clientHeight > 100);
   };
 
   return (
     <div className="flex flex-col flex-1 min-w-0" style={{ background: "var(--lyra-chat-bg)" }}>
       {/* Header */}
-      <div
-        className="flex items-center gap-3 px-4 h-12 border-b border-[var(--lyra-border)] flex-shrink-0"
-        style={{ background: "var(--lyra-chat-bg)" }}
-      >
-        <span className="text-[var(--lyra-text-muted)]">
+      <div className="glass-header flex items-center gap-3 px-4 h-12 flex-shrink-0">
+        <span style={{ color: "var(--lyra-text-muted)" }}>
           {CHANNEL_ICON[channel.type] ?? <Hash size={20} />}
         </span>
         <div className="flex-1 min-w-0">
-          <h2 className="font-semibold text-[var(--lyra-text-primary)] text-sm">{channel.name}</h2>
+          <h2 className="font-semibold text-sm" style={{ color: "var(--lyra-text-primary)" }}>{channel.name}</h2>
           {channel.topic && (
-            <p className="text-xs text-[var(--lyra-text-muted)] truncate">{channel.topic}</p>
+            <p className="text-xs truncate" style={{ color: "var(--lyra-text-muted)" }}>{channel.topic}</p>
           )}
         </div>
         <div className="flex items-center gap-1 flex-shrink-0">
-          <button
-            className="w-8 h-8 flex items-center justify-center rounded text-[var(--lyra-text-muted)]
-              hover:bg-[var(--lyra-tertiary-bg)] hover:text-[var(--lyra-text-primary)] transition-colors"
-            title="Pinned messages"
-          >
-            <Pin size={18} />
-          </button>
-          <button
-            onClick={onToggleMemberPanel}
-            className={cn(
-              "w-8 h-8 flex items-center justify-center rounded transition-colors",
-              showMemberPanel
-                ? "text-[var(--lyra-text-primary)] bg-[var(--lyra-tertiary-bg)]"
-                : "text-[var(--lyra-text-muted)] hover:bg-[var(--lyra-tertiary-bg)] hover:text-[var(--lyra-text-primary)]"
-            )}
-            title="Member list"
-          >
-            <Users size={18} />
-          </button>
-          <button
-            className="w-8 h-8 flex items-center justify-center rounded text-[var(--lyra-text-muted)]
-              hover:bg-[var(--lyra-tertiary-bg)] hover:text-[var(--lyra-text-primary)] transition-colors"
-            title="Search"
-          >
-            <Search size={18} />
-          </button>
+          {[
+            { icon: <Pin size={17} />, title: "Pinned messages", action: undefined, active: false },
+            { icon: <Users size={17} />, title: "Member list", action: onToggleMemberPanel, active: showMemberPanel },
+            { icon: <Search size={17} />, title: "Search", action: undefined, active: false },
+          ].map((btn, i) => (
+            <button
+              key={i}
+              onClick={btn.action}
+              title={btn.title}
+              className="w-8 h-8 flex items-center justify-center rounded-lg transition-all duration-150"
+              style={{ color: btn.active ? "var(--lyra-accent)" : "var(--lyra-text-muted)" }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-primary)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = btn.active ? "var(--lyra-accent)" : "var(--lyra-text-muted)"; }}
+            >
+              {btn.icon}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -154,17 +104,19 @@ export function ChatArea({
         onScroll={handleScroll}
         className="flex-1 overflow-y-auto py-4 flex flex-col gap-0.5"
       >
-        {/* Channel welcome */}
-        <div className="px-4 mb-4 pb-4 border-b border-[var(--lyra-border)]">
-          <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-3"
-            style={{ background: "var(--lyra-secondary-bg)" }}>
+        {/* Welcome */}
+        <div className="px-4 mb-4 pb-4" style={{ borderBottom: "0.5px solid var(--lyra-border-glass)" }}>
+          <div
+            className="w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-3"
+            style={{ background: "var(--lyra-glass-card)", border: "0.5px solid var(--lyra-border-glass)" }}
+          >
             {CHANNEL_ICON[channel.type] ?? "💬"}
           </div>
-          <h3 className="text-2xl font-bold text-[var(--lyra-text-primary)] mb-1">
+          <h3 className="text-2xl font-bold mb-1" style={{ color: "var(--lyra-text-primary)" }}>
             Welcome to #{channel.name}
           </h3>
           {channel.topic && (
-            <p className="text-[var(--lyra-text-secondary)] text-sm">{channel.topic}</p>
+            <p className="text-sm" style={{ color: "var(--lyra-text-secondary)" }}>{channel.topic}</p>
           )}
         </div>
 
@@ -182,17 +134,28 @@ export function ChatArea({
         <div ref={messagesEndRef} />
       </div>
 
-      {showJumpToBottom && <JumpToBottomButton onClick={scrollToBottom} />}
+      {showJumpToBottom && (
+        <button
+          onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })}
+          className="absolute bottom-24 right-8 z-10 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium animate-slide-in-up"
+          style={{
+            background: "var(--lyra-glass-active)",
+            backdropFilter: "var(--lyra-blur-sm)",
+            WebkitBackdropFilter: "var(--lyra-blur-sm)",
+            border: "0.5px solid var(--lyra-border-glow)",
+            color: "var(--lyra-accent)",
+            boxShadow: "0 0 16px var(--lyra-accent-glow)",
+          }}
+        >
+          <ChevronDown size={13} /> Jump to bottom
+        </button>
+      )}
 
-      {/* Input */}
       <MessageInput
         channelName={channel.name}
         replyTo={replyTo}
         onClearReply={() => setReplyTo(null)}
-        onSend={(content) => {
-          onSendMessage(content);
-          setReplyTo(null);
-        }}
+        onSend={(content) => { onSendMessage(content); setReplyTo(null); }}
       />
     </div>
   );

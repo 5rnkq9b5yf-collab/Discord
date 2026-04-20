@@ -30,11 +30,11 @@ export function Tooltip({ content, children, side = "right", className }: Toolti
       {visible && (
         <div
           className={cn(
-            "absolute z-50 px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap pointer-events-none",
-            "bg-[#111] text-white shadow-xl border border-white/10 animate-fade-in",
+            "absolute z-50 px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap pointer-events-none animate-fade-in glass-tooltip",
             posClass,
             className
           )}
+          style={{ color: "var(--lyra-text-primary)" }}
         >
           {content}
         </div>
