@@ -14,33 +14,57 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const VARIANT_STYLES: Record<ButtonVariant, string> = {
-  primary: "bg-[var(--lyra-button-primary)] text-[var(--lyra-button-primary-text)] hover:opacity-90 active:opacity-80",
-  secondary: "bg-[var(--lyra-tertiary-bg)] text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-secondary-bg)]",
-  ghost: "bg-transparent text-[var(--lyra-text-secondary)] hover:bg-[var(--lyra-tertiary-bg)] hover:text-[var(--lyra-text-primary)]",
-  danger: "bg-red-600 text-white hover:bg-red-700 active:bg-red-800",
-  outline: "bg-transparent border border-[var(--lyra-border)] text-[var(--lyra-text-primary)] hover:bg-[var(--lyra-tertiary-bg)]",
+  primary: "glass-btn-primary font-semibold",
+  secondary: "font-medium",
+  ghost: "bg-transparent font-medium",
+  danger: "bg-red-500/20 border border-red-500/40 text-red-300 hover:bg-red-500/30 font-medium",
+  outline: "bg-transparent font-medium",
 };
 
 const SIZE_STYLES: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm rounded-md gap-1.5",
-  md: "px-4 py-2 text-sm rounded-lg gap-2",
-  lg: "px-5 py-2.5 text-base rounded-lg gap-2",
+  sm: "px-3 py-1.5 text-sm rounded-xl gap-1.5",
+  md: "px-4 py-2 text-sm rounded-xl gap-2",
+  lg: "px-5 py-2.5 text-base rounded-xl gap-2",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = "primary", size = "md", loading, icon, children, className, disabled, ...props },
+  { variant = "primary", size = "md", loading, icon, children, className, disabled, style, ...props },
   ref
 ) {
+  const isSecondary = variant === "secondary";
+  const isGhost = variant === "ghost";
+  const isOutline = variant === "outline";
+
+  const inlineStyle: React.CSSProperties = {
+    ...(isSecondary ? {
+      background: "var(--lyra-glass-card)",
+      backdropFilter: "var(--lyra-blur-sm)",
+      WebkitBackdropFilter: "var(--lyra-blur-sm)",
+      border: "0.5px solid var(--lyra-border-glass)",
+      color: "var(--lyra-text-primary)",
+    } : {}),
+    ...(isGhost ? { color: "var(--lyra-text-secondary)" } : {}),
+    ...(isOutline ? {
+      border: "0.5px solid var(--lyra-border-glass)",
+      color: "var(--lyra-text-primary)",
+    } : {}),
+    ...style,
+  };
+
   return (
     <button
       ref={ref}
       disabled={disabled || loading}
       className={cn(
-        "inline-flex items-center justify-center font-medium transition-all duration-150 select-none disabled:opacity-50 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center transition-all duration-150 select-none",
+        "disabled:opacity-40 disabled:cursor-not-allowed hover-lift",
         VARIANT_STYLES[variant],
         SIZE_STYLES[size],
+        isGhost && "hover:bg-[var(--lyra-glass-hover)] hover:text-[var(--lyra-text-primary)] rounded-xl",
+        isOutline && "hover:bg-[var(--lyra-glass-hover)] rounded-xl",
         className
       )}
+      style={inlineStyle}
       {...props}
     >
       {loading ? (

@@ -2,30 +2,63 @@
 @import "tailwindcss";
 
 :root {
-  /* Lyra theme tokens — defaults to Lyra Default (deep purple) */
-  --lyra-primary-bg: #1a1230;
-  --lyra-secondary-bg: #231840;
-  --lyra-tertiary-bg: #2d2050;
-  --lyra-sidebar-bg: #130d25;
-  --lyra-channel-sidebar-bg: #1a1230;
-  --lyra-chat-bg: #1a1230;
-  --lyra-message-bg: #231840;
-  --lyra-accent: #c084fc;
-  --lyra-accent-hover: #d8b4fe;
-  --lyra-text-primary: #f3e8ff;
-  --lyra-text-secondary: #d8b4fe;
-  --lyra-text-muted: #a855f7;
-  --lyra-border: #3b2a6e;
-  --lyra-button-primary: #7c3aed;
-  --lyra-button-primary-text: #ffffff;
-  --lyra-input-bg: #231840;
-  --lyra-input-border: #3b2a6e;
-  --lyra-status-online: #34d399;
-  --lyra-status-idle: #fbbf24;
+  /* === Pastel Blue Glass — default === */
+
+  /* Base */
+  --lyra-primary-bg: #0a0f1e;
+  --lyra-secondary-bg: rgba(120, 160, 255, 0.08);
+  --lyra-tertiary-bg: rgba(150, 190, 255, 0.15);
+  --lyra-sidebar-bg: rgba(100, 140, 255, 0.10);
+  --lyra-channel-sidebar-bg: rgba(100, 140, 255, 0.10);
+  --lyra-chat-bg: transparent;
+  --lyra-message-bg: rgba(120, 160, 255, 0.06);
+
+  /* Glass surfaces */
+  --lyra-glass-sidebar: rgba(100, 140, 255, 0.10);
+  --lyra-glass-card: rgba(160, 200, 255, 0.12);
+  --lyra-glass-modal: rgba(180, 210, 255, 0.15);
+  --lyra-glass-input: rgba(120, 160, 255, 0.08);
+  --lyra-glass-hover: rgba(150, 190, 255, 0.18);
+  --lyra-glass-active: rgba(150, 190, 255, 0.25);
+
+  /* Borders */
+  --lyra-border: rgba(160, 200, 255, 0.20);
+  --lyra-border-glass: rgba(160, 200, 255, 0.20);
+  --lyra-border-glow: rgba(160, 200, 255, 0.40);
+
+  /* Accent */
+  --lyra-accent: #7eb8ff;
+  --lyra-accent-hover: #9ccaff;
+  --lyra-accent-glow: rgba(126, 184, 255, 0.35);
+
+  /* Text */
+  --lyra-text-primary: rgba(220, 235, 255, 0.95);
+  --lyra-text-secondary: rgba(180, 205, 255, 0.65);
+  --lyra-text-muted: rgba(140, 170, 255, 0.45);
+
+  /* Buttons */
+  --lyra-button-primary: rgba(126, 184, 255, 0.25);
+  --lyra-button-primary-text: rgba(220, 235, 255, 0.95);
+
+  /* Inputs */
+  --lyra-input-bg: rgba(120, 160, 255, 0.08);
+  --lyra-input-border: rgba(160, 200, 255, 0.20);
+
+  /* Status */
+  --lyra-status-online: #7defa1;
+  --lyra-status-idle: #f5d97a;
   --lyra-status-dnd: #f87171;
-  --lyra-status-offline: #6b7280;
-  --lyra-scrollbar: #3b2a6e;
-  --lyra-scrollbar-hover: #c084fc;
+  --lyra-status-offline: rgba(140, 170, 255, 0.30);
+
+  /* Blur levels */
+  --lyra-blur-sm: blur(8px);
+  --lyra-blur-md: blur(16px);
+  --lyra-blur-lg: blur(24px);
+  --lyra-blur-xl: blur(40px);
+
+  /* Scrollbar */
+  --lyra-scrollbar: rgba(160, 200, 255, 0.15);
+  --lyra-scrollbar-hover: rgba(160, 200, 255, 0.40);
 }
 
 @theme inline {
@@ -48,44 +81,90 @@ body {
 }
 
 body {
-  background: var(--lyra-primary-bg);
+  background-color: var(--lyra-primary-bg);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(100, 140, 255, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(140, 180, 255, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 60% 80%, rgba(80, 120, 255, 0.06) 0%, transparent 40%);
   color: var(--lyra-text-primary);
   font-family: "Inter", system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--lyra-scrollbar);
-  border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: var(--lyra-scrollbar-hover);
+/* === Glass utility classes === */
+
+.glass-surface {
+  background: var(--lyra-glass-card);
+  backdrop-filter: var(--lyra-blur-md);
+  -webkit-backdrop-filter: var(--lyra-blur-md);
+  border: 0.5px solid var(--lyra-border-glass);
+  border-radius: 16px;
+  will-change: transform;
 }
 
-/* Selection color */
+.glass-sidebar {
+  background: var(--lyra-glass-sidebar);
+  backdrop-filter: var(--lyra-blur-lg);
+  -webkit-backdrop-filter: var(--lyra-blur-lg);
+  border-right: 0.5px solid var(--lyra-border-glass);
+  will-change: transform;
+}
+
+.glass-sidebar-right {
+  background: var(--lyra-glass-sidebar);
+  backdrop-filter: var(--lyra-blur-lg);
+  -webkit-backdrop-filter: var(--lyra-blur-lg);
+  border-left: 0.5px solid var(--lyra-border-glass);
+  will-change: transform;
+}
+
+.glass-modal {
+  background: var(--lyra-glass-modal);
+  backdrop-filter: var(--lyra-blur-xl);
+  -webkit-backdrop-filter: var(--lyra-blur-xl);
+  border: 0.5px solid var(--lyra-border-glow);
+  box-shadow: 0 0 40px rgba(126, 184, 255, 0.08), inset 0 0 20px rgba(160, 200, 255, 0.04);
+  will-change: transform;
+}
+
+.glass-header {
+  background: rgba(100, 140, 255, 0.06);
+  backdrop-filter: var(--lyra-blur-sm);
+  -webkit-backdrop-filter: var(--lyra-blur-sm);
+  border-bottom: 0.5px solid var(--lyra-border-glass);
+}
+
+.glass-tooltip {
+  background: rgba(20, 30, 70, 0.85);
+  backdrop-filter: var(--lyra-blur-sm);
+  -webkit-backdrop-filter: var(--lyra-blur-sm);
+  border: 0.5px solid var(--lyra-border-glass);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--lyra-scrollbar); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--lyra-scrollbar-hover); }
+
+/* Selection */
 ::selection {
-  background: var(--lyra-accent);
-  color: var(--lyra-button-primary-text);
-  opacity: 0.3;
+  background: var(--lyra-accent-glow);
+  color: var(--lyra-text-primary);
 }
 
-/* Animations */
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+/* Focus ring */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--lyra-accent-glow);
 }
+
+/* === Animations === */
+@keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 8px 2px var(--lyra-accent); }
-  50% { box-shadow: 0 0 20px 6px var(--lyra-accent); }
+  0%, 100% { box-shadow: 0 0 8px 2px var(--lyra-accent-glow); }
+  50% { box-shadow: 0 0 20px 6px var(--lyra-accent-glow); }
 }
 @keyframes sparkle {
   0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
@@ -96,37 +175,30 @@ body {
   50% { transform: translateY(-8px); }
 }
 @keyframes rainbow-border {
-  0% { border-color: #ff0000; }
-  16% { border-color: #ff7700; }
-  32% { border-color: #ffff00; }
-  48% { border-color: #00ff00; }
-  64% { border-color: #0000ff; }
-  80% { border-color: #8b00ff; }
+  0% { border-color: #ff0000; } 16% { border-color: #ff7700; }
+  32% { border-color: #ffff00; } 48% { border-color: #00ff00; }
+  64% { border-color: #0000ff; } 80% { border-color: #8b00ff; }
   100% { border-color: #ff0000; }
 }
 @keyframes neon-pulse {
   0%, 100% { box-shadow: 0 0 5px var(--lyra-accent), 0 0 10px var(--lyra-accent); }
   50% { box-shadow: 0 0 20px var(--lyra-accent), 0 0 40px var(--lyra-accent); }
 }
-@keyframes slide-in-right {
-  from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
-@keyframes slide-in-up {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-@keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
+@keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+@keyframes slide-in-up { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
 @keyframes typing-dot {
   0%, 60%, 100% { transform: translateY(0); }
   30% { transform: translateY(-6px); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes status-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.2); }
 }
 
 .animate-spin-slow { animation: spin-slow 8s linear infinite; }
@@ -134,34 +206,46 @@ body {
 .animate-float { animation: float 3s ease-in-out infinite; }
 .animate-rainbow-border { animation: rainbow-border 3s linear infinite; }
 .animate-neon-pulse { animation: neon-pulse 2s ease-in-out infinite; }
-.animate-fade-in { animation: fade-in 0.3s ease-out; }
-.animate-slide-in-up { animation: slide-in-up 0.3s ease-out; }
+.animate-fade-in { animation: fade-in 0.25s ease-out; }
+.animate-slide-in-up { animation: slide-in-up 0.25s ease-out; }
+.animate-scale-in { animation: scale-in 0.2s ease-out; }
+.animate-status-pulse { animation: status-pulse 2.5s ease-in-out infinite; }
 
-/* Squircle avatar shape */
+/* Hover lift */
+.hover-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hover-lift:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(126, 184, 255, 0.10); }
+
+/* Squircle avatar */
 .avatar-squircle {
   clip-path: path("M 0,50 C 0,15 15,0 50,0 C 85,0 100,15 100,50 C 100,85 85,100 50,100 C 15,100 0,85 0,50 Z");
 }
 
-/* Custom CSS injection area */
-.user-custom-css {
-  /* User custom CSS goes here via style tag injection */
-}
+/* Custom CSS injection */
+.user-custom-css {}
 
-/* Lyra branding gradient */
-.lyra-gradient {
-  background: linear-gradient(135deg, #7c3aed 0%, #c084fc 50%, #f472b6 100%);
-}
+/* Lyra gradient */
+.lyra-gradient { background: linear-gradient(135deg, #5b9aff 0%, #7eb8ff 50%, #a8d4ff 100%); }
 .lyra-gradient-text {
-  background: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+  background: linear-gradient(135deg, #7eb8ff 0%, #b0d4ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glass morphism effect */
+/* Glass shorthand */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--lyra-glass-card);
+  backdrop-filter: var(--lyra-blur-md);
+  -webkit-backdrop-filter: var(--lyra-blur-md);
+  border: 0.5px solid var(--lyra-border-glass);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  body { background-image: none; }
+  .glass-sidebar, .glass-sidebar-right, .glass-surface, .glass-modal {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }

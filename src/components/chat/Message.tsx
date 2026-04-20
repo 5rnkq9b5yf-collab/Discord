@@ -79,11 +79,10 @@ export function Message({
 
   return (
     <div
-      className={cn(
-        "group relative flex gap-3 px-4 py-0.5 transition-colors",
-        hovered && "bg-[var(--lyra-message-bg)]/60",
-        className
-      )}
+      className={cn("group relative flex gap-3 px-4 py-0.5 transition-all duration-150 rounded-lg", className)}
+      style={{ background: hovered ? "var(--lyra-glass-hover)" : undefined,
+               backdropFilter: hovered ? "var(--lyra-blur-sm)" : undefined,
+               WebkitBackdropFilter: hovered ? "var(--lyra-blur-sm)" : undefined }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -190,8 +189,7 @@ export function Message({
       {/* Action bar on hover */}
       {hovered && (
         <div
-          className="absolute right-4 -top-4 flex items-center gap-0.5 rounded-lg border border-[var(--lyra-border)] shadow-lg p-0.5 z-10 animate-fade-in"
-          style={{ background: "var(--lyra-secondary-bg)" }}
+          className="absolute right-4 -top-4 flex items-center gap-0.5 rounded-xl p-0.5 z-10 animate-fade-in glass-surface"
         >
           {ACTION_BUTTONS.slice(0, 6).map((btn) => (
             <button

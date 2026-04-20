@@ -6,12 +6,7 @@ import { Avatar } from "@/components/ui/Avatar";
 import { Tooltip } from "@/components/ui/Tooltip";
 import { StatusIndicator } from "@/components/ui/StatusIndicator";
 import type { Server, User } from "@/lib/types";
-import {
-  MessageCircle,
-  Settings,
-  Plus,
-  Compass,
-} from "lucide-react";
+import { MessageCircle, Settings, Plus, Compass } from "lucide-react";
 
 interface ServerSidebarProps {
   servers: Server[];
@@ -21,41 +16,38 @@ interface ServerSidebarProps {
   onOpenSettings: () => void;
 }
 
-function ServerIcon({
-  server,
-  active,
-  onClick,
-}: {
-  server: Server;
-  active: boolean;
-  onClick: () => void;
-}) {
+function ServerIcon({ server, active, onClick }: { server: Server; active: boolean; onClick: () => void }) {
   return (
     <Tooltip content={server.name} side="right">
       <button
         onClick={onClick}
         className={cn(
-          "relative group flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-200 select-none",
+          "relative group flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-200 select-none hover-lift",
           active
-            ? "rounded-xl bg-[var(--lyra-accent)] text-white"
-            : "bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-primary)] hover:rounded-xl hover:bg-[var(--lyra-accent)] hover:text-white"
+            ? "rounded-xl border border-[var(--lyra-border-glow)] shadow-[0_0_16px_var(--lyra-accent-glow)]"
+            : "hover:rounded-xl"
         )}
+        style={{
+          background: active
+            ? "var(--lyra-glass-active)"
+            : "var(--lyra-glass-card)",
+          backdropFilter: "var(--lyra-blur-sm)",
+          WebkitBackdropFilter: "var(--lyra-blur-sm)",
+          border: active ? "0.5px solid var(--lyra-border-glow)" : "0.5px solid var(--lyra-border-glass)",
+          color: active ? "var(--lyra-accent)" : "var(--lyra-text-secondary)",
+        }}
       >
         {server.icon ? (
           <img src={server.icon} alt={server.name} className="w-full h-full object-cover rounded-inherit" />
         ) : (
           <span className="text-lg font-bold">
-            {server.name
-              .split(" ")
-              .map((w) => w[0])
-              .slice(0, 2)
-              .join("")}
+            {server.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
           </span>
         )}
-        {/* Active indicator pill */}
         <span
           className={cn(
-            "absolute -left-3 w-1 bg-[var(--lyra-text-primary)] rounded-r-full transition-all duration-200",
+            "absolute -left-3 w-1 rounded-r-full transition-all duration-200",
+            "bg-[var(--lyra-accent)]",
             active ? "h-9" : "h-0 group-hover:h-4"
           )}
         />
@@ -64,49 +56,65 @@ function ServerIcon({
   );
 }
 
-export function ServerSidebar({
-  servers,
-  currentServerId,
-  currentUser,
-  onSelectServer,
-  onOpenSettings,
-}: ServerSidebarProps) {
+function IconButton({ label, onClick, children, active }: { label: string; onClick?: () => void; children: React.ReactNode; active?: boolean }) {
+  return (
+    <Tooltip content={label} side="right">
+      <button
+        onClick={onClick}
+        className="group flex items-center justify-center w-12 h-12 rounded-2xl transition-all duration-200 hover:rounded-xl hover-lift"
+        style={{
+          background: active ? "var(--lyra-glass-active)" : "var(--lyra-glass-card)",
+          backdropFilter: "var(--lyra-blur-sm)",
+          WebkitBackdropFilter: "var(--lyra-blur-sm)",
+          border: "0.5px solid var(--lyra-border-glass)",
+          color: "var(--lyra-text-muted)",
+        }}
+        onMouseEnter={(e) => {
+          e.currentTarget.style.color = "var(--lyra-accent)";
+          e.currentTarget.style.borderColor = "var(--lyra-border-glow)";
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.style.color = "var(--lyra-text-muted)";
+          e.currentTarget.style.borderColor = "var(--lyra-border-glass)";
+        }}
+      >
+        {children}
+      </button>
+    </Tooltip>
+  );
+}
+
+export function ServerSidebar({ servers, currentServerId, currentUser, onSelectServer, onOpenSettings }: ServerSidebarProps) {
   return (
     <aside
-      className="flex flex-col items-center py-3 gap-2 w-[72px] flex-shrink-0 overflow-y-auto"
-      style={{ background: "var(--lyra-sidebar-bg)" }}
+      className="glass-sidebar flex flex-col items-center py-3 gap-2 w-[72px] flex-shrink-0 overflow-y-auto"
     >
-      {/* Lyra logo */}
+      {/* Logo */}
       <Tooltip content="Home" side="right">
         <button
           onClick={() => onSelectServer("dm")}
           className={cn(
-            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200 font-bold text-xl",
-            currentServerId === "dm"
-              ? "rounded-xl bg-[var(--lyra-accent)] text-white"
-              : "bg-[var(--lyra-secondary-bg)] text-[var(--lyra-accent)] hover:rounded-xl hover:bg-[var(--lyra-accent)] hover:text-white"
+            "w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200 font-bold text-xl hover:rounded-xl hover-lift",
           )}
+          style={{
+            background: currentServerId === "dm" ? "var(--lyra-glass-active)" : "var(--lyra-glass-card)",
+            backdropFilter: "var(--lyra-blur-sm)",
+            WebkitBackdropFilter: "var(--lyra-blur-sm)",
+            border: currentServerId === "dm" ? "0.5px solid var(--lyra-border-glow)" : "0.5px solid var(--lyra-border-glass)",
+            color: "var(--lyra-accent)",
+            boxShadow: currentServerId === "dm" ? "0 0 16px var(--lyra-accent-glow)" : undefined,
+          }}
         >
           ♪
         </button>
       </Tooltip>
 
-      <div className="w-8 h-px bg-[var(--lyra-border)] rounded my-1" />
+      <div className="w-8 h-px rounded my-1" style={{ background: "var(--lyra-border-glass)" }} />
 
-      {/* DMs */}
-      <Tooltip content="Direct Messages" side="right">
-        <button
-          className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200
-            bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-secondary)]
-            hover:rounded-xl hover:bg-[var(--lyra-accent)] hover:text-white"
-        >
-          <MessageCircle size={22} />
-        </button>
-      </Tooltip>
+      <IconButton label="Direct Messages"><MessageCircle size={22} /></IconButton>
 
-      <div className="w-8 h-px bg-[var(--lyra-border)] rounded my-1" />
+      <div className="w-8 h-px rounded my-1" style={{ background: "var(--lyra-border-glass)" }} />
 
-      {/* Server list */}
       {servers.map((server) => (
         <ServerIcon
           key={server.id}
@@ -116,43 +124,13 @@ export function ServerSidebar({
         />
       ))}
 
-      {/* Add server / explore */}
-      <Tooltip content="Add a Server" side="right">
-        <button
-          className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200
-            bg-[var(--lyra-secondary-bg)] text-green-400
-            hover:rounded-xl hover:bg-green-500 hover:text-white"
-        >
-          <Plus size={24} />
-        </button>
-      </Tooltip>
+      <IconButton label="Add a Server"><Plus size={24} /></IconButton>
+      <IconButton label="Explore Servers"><Compass size={22} /></IconButton>
 
-      <Tooltip content="Explore Servers" side="right">
-        <button
-          className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200
-            bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-secondary)]
-            hover:rounded-xl hover:bg-[var(--lyra-accent)] hover:text-white"
-        >
-          <Compass size={22} />
-        </button>
-      </Tooltip>
-
-      {/* Spacer */}
       <div className="flex-1" />
 
-      {/* Settings */}
-      <Tooltip content="Settings" side="right">
-        <button
-          onClick={onOpenSettings}
-          className="w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-200
-            bg-[var(--lyra-secondary-bg)] text-[var(--lyra-text-secondary)]
-            hover:rounded-xl hover:bg-[var(--lyra-accent)] hover:text-white"
-        >
-          <Settings size={20} />
-        </button>
-      </Tooltip>
+      <IconButton label="Settings" onClick={onOpenSettings}><Settings size={20} /></IconButton>
 
-      {/* Current user avatar */}
       <div className="relative">
         <Avatar
           displayName={currentUser.displayName}

@@ -62,8 +62,8 @@ export function ProfileCard({
   return (
     <div
       ref={cardRef}
-      className="w-76 rounded-2xl overflow-hidden shadow-2xl border border-[var(--lyra-border)] animate-slide-in-up"
-      style={{ ...style, background: "var(--lyra-primary-bg)", width: 300 }}
+      className="w-76 rounded-2xl overflow-hidden animate-scale-in glass-modal"
+      style={{ ...style, width: 300 }}
     >
       {/* Banner */}
       <div

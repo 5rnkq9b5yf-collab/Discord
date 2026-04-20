@@ -74,7 +74,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-full overflow-y-auto" style={{ background: "var(--lyra-primary-bg)" }}>
+    <div className="min-h-full overflow-y-auto" style={{ background: "var(--lyra-primary-bg)", backgroundImage: "radial-gradient(ellipse at 20% 50%, rgba(100,140,255,0.10) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(140,180,255,0.07) 0%, transparent 40%)" }}>
       {/* Nav */}
       <nav className="flex items-center justify-between px-6 py-4 max-w-6xl mx-auto">
         <div className="flex items-center gap-2">
@@ -149,8 +149,7 @@ export default function LandingPage() {
           {SHOWCASE_USERS.map((user) => (
             <div
               key={user.id}
-              className="rounded-2xl overflow-hidden border border-[var(--lyra-border)] w-56 hover:-translate-y-1 transition-transform duration-200 cursor-pointer"
-              style={{ background: "var(--lyra-secondary-bg)" }}
+              className="rounded-2xl overflow-hidden w-56 cursor-pointer hover-lift glass-surface"
             >
               <div
                 className="h-16 w-full"
@@ -198,8 +197,7 @@ export default function LandingPage() {
           {FEATURES.map((feature, i) => (
             <div
               key={i}
-              className="p-5 rounded-2xl border border-[var(--lyra-border)] hover:border-[var(--lyra-accent)]/50 transition-all duration-200 hover:-translate-y-0.5"
-              style={{ background: "var(--lyra-secondary-bg)" }}
+              className="p-5 rounded-2xl transition-all duration-200 hover-lift glass-surface"
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
@@ -217,8 +215,7 @@ export default function LandingPage() {
       {/* CTA */}
       <section className="px-6 py-20 text-center">
         <div
-          className="max-w-xl mx-auto p-10 rounded-3xl border border-[var(--lyra-border)]"
-          style={{ background: "var(--lyra-secondary-bg)" }}
+          className="max-w-xl mx-auto p-10 rounded-3xl glass-modal"
         >
           <span className="text-5xl mb-4 block">♪</span>
           <h2 className="text-3xl font-bold text-[var(--lyra-text-primary)] mb-2">Ready to join Lyra?</h2>
