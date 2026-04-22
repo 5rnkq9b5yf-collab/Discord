@@ -34,6 +34,7 @@ const FORMAT_BUTTONS = [
 export function MessageInput({ channelName, replyTo, onClearReply, onSend, className }: MessageInputProps) {
   const [value, setValue] = useState("");
   const [showEmoji, setShowEmoji] = useState(false);
+  const [showFormatBar, setShowFormatBar] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -109,33 +110,47 @@ export function MessageInput({ channelName, replyTo, onClearReply, onSend, class
 
       {/* Input box */}
       <div
-        className={cn("flex flex-col overflow-hidden", replyTo ? "rounded-b-2xl" : "rounded-2xl")}
+        className={cn("flex flex-col overflow-hidden", replyTo ? "rounded-b-2xl" : "")}
         style={{
           background: "var(--lyra-glass-input)",
           backdropFilter: "var(--lyra-blur-md)",
           WebkitBackdropFilter: "var(--lyra-blur-md)",
           border: "0.5px solid var(--lyra-border-glass)",
+          borderRadius: replyTo ? "0 0 14px 14px" : "14px",
         }}
       >
-        {/* Format toolbar */}
-        <div className="flex items-center gap-0.5 px-3 pt-2 pb-1" style={{ borderBottom: "0.5px solid var(--lyra-border-glass)" }}>
-          {FORMAT_BUTTONS.map((btn) => (
-            <button
-              key={btn.action}
-              onClick={() => applyFormat(btn.action)}
-              title={btn.title}
-              className="w-6 h-6 flex items-center justify-center rounded-lg transition-all duration-100"
-              style={{ color: "var(--lyra-text-muted)" }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-primary)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; }}
-            >
-              {btn.icon}
-            </button>
-          ))}
-        </div>
+        {/* Format toolbar (conditionally shown) */}
+        {showFormatBar && (
+          <div className="flex items-center gap-0.5 px-3 pt-1.5 pb-1" style={{ borderBottom: "0.5px solid var(--lyra-border-glass)" }}>
+            {FORMAT_BUTTONS.map((btn) => (
+              <button
+                key={btn.action}
+                onClick={() => applyFormat(btn.action)}
+                title={btn.title}
+                className="w-5 h-5 flex items-center justify-center rounded transition-all duration-100"
+                style={{ color: "var(--lyra-text-muted)" }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-primary)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; }}
+              >
+                {btn.icon}
+              </button>
+            ))}
+          </div>
+        )}
 
         {/* Textarea row */}
         <div className="flex items-end gap-2 px-3 py-2">
+          {/* Format toggle button */}
+          <button
+            onClick={() => setShowFormatBar((v) => !v)}
+            title="Toggle formatting"
+            className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg transition-all duration-100 text-xs font-semibold"
+            style={{ color: showFormatBar ? "var(--lyra-accent)" : "var(--lyra-text-muted)" }}
+            onMouseEnter={(e) => { if (!showFormatBar) { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-accent)"; } }}
+            onMouseLeave={(e) => { if (!showFormatBar) { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; } }}
+          >
+            Aa
+          </button>
           <button
             title="Attach file"
             className="flex-shrink-0 w-7 h-7 flex items-center justify-center rounded-lg transition-all duration-100"

@@ -85,7 +85,7 @@ export function Message({
           />
         </div>
       ) : (
-        <div className="w-10 flex-shrink-0 flex items-center justify-end">
+        <div className="w-9 flex-shrink-0 flex items-center justify-end">
           {hovered && (
             <span className="text-[10px] text-[var(--lyra-text-muted)] leading-none">
               {new Date(message.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
@@ -174,25 +174,48 @@ export function Message({
       {/* Action bar on hover */}
       {hovered && (
         <div
-          className="absolute right-4 -top-4 flex items-center gap-0.5 rounded-xl p-0.5 z-10 animate-fade-in glass-surface"
+          className="absolute -top-4 right-4 flex items-center gap-0.5 z-10 animate-fade-in"
+          style={{
+            background: "var(--lyra-glass-modal)",
+            backdropFilter: "var(--lyra-blur-sm)",
+            WebkitBackdropFilter: "var(--lyra-blur-sm)",
+            border: "0.5px solid var(--lyra-border-glass)",
+            borderRadius: 8,
+            padding: "3px 4px",
+          }}
         >
-          {ACTION_BUTTONS.slice(0, 6).map((btn) => (
+          {["🎉", "❤️", "✨", "👀"].map((e) => (
             <button
-              key={btn.action}
-              onClick={() => {
-                if (btn.action === "reply") onReply?.(message);
-              }}
-              className={cn(
-                "w-7 h-7 rounded flex items-center justify-center transition-colors",
-                btn.danger
-                  ? "text-[var(--lyra-text-muted)] hover:bg-red-500/20 hover:text-red-400"
-                  : "text-[var(--lyra-text-muted)] hover:bg-[var(--lyra-tertiary-bg)] hover:text-[var(--lyra-text-primary)]"
-              )}
-              title={btn.label}
+              key={e}
+              onClick={() => onReact?.(message.id, e)}
+              className="px-1 py-0.5 text-sm rounded transition-colors leading-none"
+              style={{ lineHeight: 1 }}
+              onMouseEnter={(ev) => { ev.currentTarget.style.background = "var(--lyra-glass-hover)"; }}
+              onMouseLeave={(ev) => { ev.currentTarget.style.background = ""; }}
             >
-              {btn.icon}
+              {e}
             </button>
           ))}
+          <div style={{ width: 1, height: 14, background: "var(--lyra-border-glass)", margin: "0 2px" }} />
+          <button
+            onClick={() => onReply?.(message)}
+            className="flex items-center justify-center w-6 h-6 rounded transition-colors"
+            style={{ color: "var(--lyra-text-muted)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-primary)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; }}
+            title="Reply"
+          >
+            <Reply size={13} />
+          </button>
+          <button
+            className="flex items-center justify-center w-6 h-6 rounded transition-colors"
+            style={{ color: "var(--lyra-text-muted)" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--lyra-glass-hover)"; e.currentTarget.style.color = "var(--lyra-text-primary)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = ""; e.currentTarget.style.color = "var(--lyra-text-muted)"; }}
+            title="More"
+          >
+            <MoreHorizontal size={13} />
+          </button>
         </div>
       )}
     </div>

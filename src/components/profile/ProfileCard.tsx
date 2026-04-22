@@ -8,7 +8,7 @@ import { BadgeRow } from "@/components/ui/Badge";
 import { IdentityTagRow } from "@/components/ui/IdentityTag";
 import { Button } from "@/components/ui/Button";
 import type { User } from "@/lib/types";
-import { MessageCircle, UserPlus, ExternalLink, Music } from "lucide-react";
+import { MessageCircle, UserPlus, ExternalLink } from "lucide-react";
 import { formatRelativeTime } from "@/lib/utils";
 
 const STATUS_LABEL: Record<string, string> = {
@@ -67,24 +67,13 @@ export function ProfileCard({
     >
       {/* Banner */}
       <div
-        className="h-24 w-full relative"
+        className="h-20 w-full relative"
         style={{
           background: user.banner
             ? `url(${user.banner}) center/cover`
             : `linear-gradient(135deg, var(--lyra-accent) 0%, var(--lyra-button-primary) 100%)`,
         }}
-      >
-        {/* Profile effects overlay placeholder */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: "radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px)",
-              backgroundSize: "30px 30px",
-              animation: "float 4s ease-in-out infinite",
-            }}
-          />
-        </div>
-      </div>
+      />
 
       {/* Avatar + name */}
       <div className="px-4 pb-1 relative">
@@ -144,7 +133,7 @@ export function ProfileCard({
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-[var(--lyra-border)] my-2" />
+        <div className="h-px bg-[var(--lyra-border-glass)] my-2" />
 
         {/* Bio */}
         {user.bio && (
@@ -180,16 +169,16 @@ export function ProfileCard({
         {/* Spotify now playing */}
         {user.spotifyConnected && user.nowPlaying && (
           <>
-            <div className="h-px bg-[var(--lyra-border)] my-2" />
-            <div className="flex items-center gap-2 mb-2">
-              <Music size={14} className="text-green-400 flex-shrink-0" />
-              <div className="min-w-0">
-                <p className="text-xs font-medium text-[var(--lyra-text-primary)] truncate">
-                  {user.nowPlaying.name}
-                </p>
-                <p className="text-xs text-[var(--lyra-text-muted)] truncate">
-                  {user.nowPlaying.artist}
-                </p>
+            <div className="h-px my-2" style={{ background: "var(--lyra-border-glass)" }} />
+            <div className="rounded-xl p-2.5 mb-2" style={{ background: "rgba(30,215,96,0.12)", border: "0.5px solid rgba(30,215,96,0.25)" }}>
+              <p className="text-[10px] font-semibold mb-1.5" style={{ color: "#1ed760", letterSpacing: "0.05em" }}>♫ LISTENING TO SPOTIFY</p>
+              <p className="text-xs font-semibold text-[var(--lyra-text-primary)] truncate">{user.nowPlaying.name}</p>
+              <p className="text-[11px] text-[var(--lyra-text-muted)] truncate mb-1.5">{user.nowPlaying.artist}</p>
+              <div className="h-[3px] rounded-full" style={{ background: "rgba(255,255,255,0.15)" }}>
+                <div
+                  className="h-full rounded-full"
+                  style={{ width: `${Math.min(100, (user.nowPlaying.progress / user.nowPlaying.duration) * 100)}%`, background: "#1ed760" }}
+                />
               </div>
             </div>
           </>
